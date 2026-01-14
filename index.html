@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirSeaLogistics S.A.C. - Prospectos 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent; /* Para iOS */
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f1b3d, #1e3c72);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            -webkit-text-size-adjust: 100%; /* Evita zoom en iOS */
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+            color: #4fc3f7;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #4fc3f7, #29b6f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #bbdefb;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .year-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .prospect-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none; /* iOS Safari */
+        }
+
+        .prospect-card:hover, .prospect-card:active {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #4fc3f7;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .prospect-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .prospect-card:hover::before {
+            left: 100%;
+        }
+
+        .prospect-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #4fc3f7;
+            pointer-events: none; /* Mejora la respuesta táctil */
+        }
+
+        .prospect-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #fff;
+            pointer-events: none;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            pointer-events: none;
+        }
+
+        .prospect-card:hover .status {
+            background: linear-gradient(45deg, #29b6f6, #4fc3f7);
+            box-shadow: 0 5px 15px rgba(41, 182, 246, 0.4);
+        }
+
+        /* Modal de contraseña */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            -webkit-transform: translateZ(0); /* Aceleración hardware */
+            transform: translateZ(0);
+        }
+
+        .modal h2 {
+            margin-bottom: 30px;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            -webkit-appearance: none; /* Estilo nativo de iOS */
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #4fc3f7;
+            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+
+        .password-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover, .btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Botón para mostrar/ocultar contraseña */
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 1.2rem;
+            -webkit-appearance: none;
+            padding: 10px;
+        }
+
+        .password-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #bbdefb;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Notificación */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Loading para iOS */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4fc3f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive para iOS */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+            }
+            
+            /* Mejorar tamaño de tap en móviles */
+            .prospect-card {
+                padding: 20px;
+                min-height: 180px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .btn {
+                padding: 18px 30px; /* Botones más grandes para tacto */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .prospect-name {
+                font-size: 1.6rem;
+            }
+            
+            /* Prevenir zoom en inputs en iOS */
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        /* Solución específica para Safari */
+        @supports (-webkit-touch-callout: none) {
+            .prospect-card {
+                cursor: default; /* Safari en iOS no usa cursor */
+            }
+            
+            /* Mejorar rendimiento táctil */
+            .prospect-card:active {
+                opacity: 0.9;
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🚢✈️</span>
+                <div>
+                    <h1>AirSeaLogistics S.A.C.</h1>
+                    <div class="subtitle">Sistema de Gestión de Prospectos</div>
+                </div>
+            </div>
+            <div class="year-badge">2026</div>
+        </header>
+
+        <main>
+            <div class="dashboard">
+                <div class="prospect-card" onclick="openPasswordModal('FSEBASTIAN', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_FSEBASTIAN/edit')">
+                    <div class="prospect-icon">👨‍💼</div>
+                    <div class="prospect-name">FSEBASTIAN</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('MGIL', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_MGIL/edit')">
+                    <div class="prospect-icon">👩‍💼</div>
+                    <div class="prospect-name">MGIL</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('CFLORES', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_CFLORES/edit')">
+                    <div class="prospect-icon">👨‍💻</div>
+                    <div class="prospect-name">CFLORES</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('JWANG', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_JWANG/edit')">
+                    <div class="prospect-icon">👩‍🔧</div>
+                    <div class="prospect-name">JWANG</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('CMARTINEZH', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_CMARTINEZH/edit')">
+                    <div class="prospect-icon">👨‍✈️</div>
+                    <div class="prospect-name">CMARTINEZH</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('DALVARADO', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_DALVARADO/edit')">
+                    <div class="prospect-icon">👩‍💼</div>
+                    <div class="prospect-name">DALVARADO</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('LPERALTA', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_LPERALTA/edit')">
+                    <div class="prospect-icon">👨‍💼</div>
+                    <div class="prospect-name">LPERALTA</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('RPANTIGOSO', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_RPANTIGOSO/edit')">
+                    <div class="prospect-icon">👩‍💻</div>
+                    <div class="prospect-name">RPANTIGOSO</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('CONTROL', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_CONTROL/edit')">
+                    <div class="prospect-icon">📊</div>
+                    <div class="prospect-name">CONTROL</div>
+                    <div class="status">Ingresar</div>
+                </div>
+
+                <div class="prospect-card" onclick="openPasswordModal('CORPORATIVO', 'https://docs.google.com/spreadsheets/d/TU_ID_REAL_CORPORATIVO/edit')">
+                    <div class="prospect-icon">🏢</div>
+                    <div class="prospect-name">CORPORATIVO</div>
+                    <div class="status">Ingresar</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal de contraseña -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalTitle">Acceso al Sistema</h2>
+                <p id="modalSubtitle" style="color: #bbdefb; margin-bottom: 20px;">Ingrese la contraseña para acceder al documento</p>
+                
+                <div class="password-container">
+                    <input type="password" 
+                           id="passwordInput" 
+                           class="password-input" 
+                           placeholder="Ingrese su contraseña"
+                           onkeypress="handleEnterKey(event)">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+                        👁️
+                    </button>
+                </div>
+                
+                <div id="errorMessage" class="error-message">
+                    ⚠️ Contraseña incorrecta. Intente nuevamente.
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="btn btn-primary" onclick="checkPassword()">Acceder</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                </div>
+                
+                <p id="passwordHint" style="margin-top: 20px; color: #bbdefb; font-size: 0.9rem;">
+                    🔐 Contraseña por defecto: 1234
+                </p>
+            </div>
+        </div>
+
+        <!-- Loading para iOS -->
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- Notificación -->
+        <div id="notification" class="notification">
+            Acceso concedido. Redirigiendo...
+        </div>
+
+        <footer>
+            <p>© 2026 AirSeaLogistics S.A.C. - Todos los derechos reservados</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Sistema de gestión de prospectos | Versión 2.2 iOS</p>
+            <p style="margin-top: 5px; font-size: 0.7rem; color: #90caf9;">
+                Optimizado para iPhone y dispositivos móviles
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        let currentLink = '';
+        let currentUser = '';
+        let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        // CONTRASEÑAS PARA CADA USUARIO
+        const passwords = {
+            'FSEBASTIAN': '1234',
+            'MGIL': '1234',
+            'CFLORES': '1234',
+            'JWANG': '1234',
+            'CMARTINEZH': '1234',
+            'DALVARADO': '1234',
+            'LPERALTA': '1234',
+            'RPANTIGOSO': '1234',
+            'CONTROL': '1234',
+            'CORPORATIVO': '1234'
+        };
+
+        const descriptions = {
+            'FSEBASTIAN': 'Prospectos asignados a FSEBASTIAN',
+            'MGIL': 'Prospectos asignados a MGIL',
+            'CFLORES': 'Prospectos asignados a CFLORES',
+            'JWANG': 'Prospectos asignados a JWANG',
+            'CMARTINEZH': 'Prospectos asignados a CMARTINEZH',
+            'DALVARADO': 'Prospectos asignados a DALVARADO',
+            'LPERALTA': 'Prospectos asignados a LPERALTA',
+            'RPANTIGOSO': 'Prospectos asignados a RPANTIGOSO',
+            'CONTROL': 'Dashboard general de control',
+            'CORPORATIVO': 'Documentos corporativos y administrativos'
+        };
+
+        // SOLUCIÓN PARA iOS: Usar eventos táctiles
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.prospect-card');
+            
+            cards.forEach(card => {
+                // Para iOS, usar touchstart en lugar de click
+                if (isIOS) {
+                    card.addEventListener('touchstart', function(e) {
+                        // Prevenir comportamiento por defecto
+                        e.preventDefault();
+                        
+                        // Agregar efecto visual táctil
+                        this.style.opacity = '0.9';
+                        this.style.transform = 'scale(0.98)';
+                        
+                        // Obtener datos del botón
+                        const user = this.getAttribute('data-user') || 
+                                   this.onclick.toString().match(/openPasswordModal\('([^']+)'/)[1];
+                        const link = this.getAttribute('data-link') || 
+                                    this.onclick.toString().match(/openPasswordModal\('[^']+',\s*'([^']+)'/)[1];
+                        
+                        // Pequeño delay para feedback táctil
+                        setTimeout(() => {
+                            this.style.opacity = '';
+                            this.style.transform = '';
+                            openPasswordModal(user, link);
+                        }, 150);
+                    }, { passive: false });
+                }
+                
+                // También mantener el click para otros dispositivos
+                card.addEventListener('click', function(e) {
+                    if (!isIOS) {
+                        const user = this.getAttribute('data-user') || 
+                                   this.onclick.toString().match(/openPasswordModal\('([^']+)'/)[1];
+                        const link = this.getAttribute('data-link') || 
+                                    this.onclick.toString().match(/openPasswordModal\('[^']+',\s*'([^']+)'/)[1];
+                        openPasswordModal(user, link);
+                    }
+                });
+            });
+            
+            // Para el modal
+            document.getElementById('passwordModal').addEventListener('touchstart', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            }, { passive: true });
+        });
+
+        function openPasswordModal(user, link) {
+            currentUser = user;
+            currentLink = link;
+            
+            document.getElementById('modalTitle').textContent = `Acceso: ${user}`;
+            document.getElementById('modalSubtitle').textContent = descriptions[user] || 'Ingrese la contraseña para acceder al documento';
+            
+            document.getElementById('passwordModal').style.display = 'flex';
+            
+            // Enfocar el input después de un pequeño delay
+            setTimeout(() => {
+                document.getElementById('passwordInput').focus();
+            }, 300);
+            
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordInput').type = 'password';
+            
+            const passwordHint = document.getElementById('passwordHint');
+            passwordHint.textContent = '🔐 Contraseña por defecto: 1234';
+            passwordHint.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('passwordInput');
+            const toggleButton = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.textContent = '👁️';
+            }
+        }
+
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            
+            if (isError) {
+                notification.style.background = 'linear-gradient(45deg, #f44336, #d32f2f)';
+            } else {
+                notification.style.background = 'linear-gradient(45deg, #4CAF50, #2E7D32)';
+            }
+            
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // SOLUCIÓN PARA iOS: Abrir enlace de forma compatible
+        function openLinkCompatible(link) {
+            if (isIOS) {
+                // Para iOS, usar un enfoque diferente
+                showLoading();
+                
+                // Crear un enlace temporal y hacer click
+                const tempLink = document.createElement('a');
+                tempLink.href = link;
+                tempLink.target = '_blank';
+                tempLink.rel = 'noopener noreferrer';
+                
+                // Agregar al documento y hacer click
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+                
+                // Ocultar loading después de un tiempo
+                setTimeout(hideLoading, 1000);
+                
+                // También intentar con window.location como fallback
+                setTimeout(() => {
+                    window.location.href = link;
+                }, 500);
+            } else {
+                // Para otros navegadores, usar window.open normal
+                window.open(link, '_blank');
+            }
+        }
+
+        function checkPassword() {
+            const inputPassword = document.getElementById('passwordInput').value;
+            const correctPassword = passwords[currentUser];
+            
+            if (inputPassword === correctPassword) {
+                showNotification(`✅ Acceso concedido a ${currentUser}. Abriendo documento...`);
+                
+                // SOLUCIÓN MEJORADA PARA iOS
+                setTimeout(() => {
+                    if (isIOS) {
+                        // En iOS, asegurar que sea una acción directa del usuario
+                        openLinkCompatible(currentLink);
+                    } else {
+                        window.open(currentLink, '_blank', 'noopener,noreferrer');
+                    }
+                    closeModal();
+                }, 800);
+                
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+                
+                // Efecto de error
+                const input = document.getElementById('passwordInput');
+                input.style.borderColor = '#ff6b6b';
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                    input.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }, 500);
+                
+                showNotification('❌ Contraseña incorrecta', true);
+            }
+        }
+
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        }
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Agregar animación de shake
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Debug para iOS
+        console.log('📱 Dispositivo detectado:', isIOS ? 'iOS' : 'No iOS');
+        console.log('🔄 Navegador:', navigator.userAgent);
+    </script>
+</body>
+</html>
